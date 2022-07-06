@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     },
     name:{
         
-        fontSize:30,
+        fontSize:28,
         fontWeight:'600',
         marginVertical:10,
     
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         color:'#fff',
         padding:20,
+        alignSelf:'center',
     },
     buttonText:{
         fontSize:20,
