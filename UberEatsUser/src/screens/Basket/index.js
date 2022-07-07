@@ -1,45 +1,30 @@
-import { View,Text } from "react-native";
+import { View,Text, FlatList } from "react-native";
 import styles from "./style";
 import resturants from '../../../assets/data/restaurants.json'
 import {AntDesign} from '@expo/vector-icons';
 import { useState } from "react";
+import BasketDishItems from "../../components/ResturantItemListCreateOrder";
+
 
 
 const restaurant = resturants[0];
 // const quantity = 0; wont work we need to rerender
 
 const Basket = () => {
-
-    const [quantity,setQuantity] = useState(1); //array of 2 values
-    // const [totalPrice, setTotalPrice] = useState(dish.price);
-    //vale = 2 wont work so setter(2)
-
-    const onMinus = () =>{
-
-        if(quantity > 1)
-        {
-            setQuantity(quantity -1);
-            // setTotalPrice(totalPrice - dish.price);
-
-        }
-   
-    }
-    const onPlus = () =>
-    {
-        setQuantity(quantity + 1);
-        // setTotalPrice(totalPrice + dish.price);
-
-    }
-
     return (
         <View style={styles.page}>
             <View style={styles.dishInfo}>
                 <Text style={styles.name}>{restaurant.name}</Text>
 
-                <Text>Your Items</Text>
-                <View></View>
-
+                <Text style={styles.subTitle}>Your Items</Text>
+               
+                <FlatList
+                    data={restaurant.dishes}
+                    renderItem={({item}) => <BasketDishItems basketDishes={item} />}>
+                    
+                </FlatList>
                 <View style={styles.horizontalSeperator}></View>
+
 
             </View>
 

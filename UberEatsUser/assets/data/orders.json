@@ -10,7 +10,7 @@
         "id":"7d7965f7-1b33-4b8c-9bac-0c22bc905030",
         "name":"El Cabo Coffe Bar Tres De Mayo",
         "image":"https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg",
-        "deliveryFee":0.039448871531492236,
+        "deliveryFee":7,
         "minDeliveryTime":10,
         "maxDeliveryTime":44,
         "rating":1.5095123177204128,
@@ -18,7 +18,7 @@
         "lat":46.87190499528364,
         "lng":28.54937769418778,
         "createdAt":"2022-04-16T12:03:33.225Z",
-        "updatedAt":"2022-04-16T12:05:12.826Z",
+        "updatedAt":"2022-04-16T12:05:12.826Z"
      }
   },
   {
@@ -32,7 +32,7 @@
         "id":"7d7965f7-1b33-4b8c-9bac-0c22bc905030",
         "name":"Jacobs - DuBuque",
         "image":"https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg",
-        "deliveryFee":0.039448871531492236,
+        "deliveryFee":7,
         "minDeliveryTime":10,
         "maxDeliveryTime":44,
         "rating":1.5095123177204128,
@@ -40,7 +40,7 @@
         "lat":46.87190499528364,
         "lng":28.54937769418778,
         "createdAt":"2022-04-16T12:03:33.225Z",
-        "updatedAt":"2022-04-16T12:05:12.826Z",
+        "updatedAt":"2022-04-16T12:05:12.826Z"
      }
   },
   {
@@ -57,7 +57,7 @@
         "id":"7d7965f7-1b33-4b8c-9bac-0c22bc905030",
         "name":"Jacobs - DuBuque",
         "image":"https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg",
-        "deliveryFee":0.039448871531492236,
+        "deliveryFee":7,
         "minDeliveryTime":10,
         "maxDeliveryTime":44,
         "rating":1.5095123177204128,
@@ -65,7 +65,7 @@
         "lat":46.87190499528364,
         "lng":28.54937769418778,
         "createdAt":"2022-04-16T12:03:33.225Z",
-        "updatedAt":"2022-04-16T12:05:12.826Z",
+        "updatedAt":"2022-04-16T12:05:12.826Z"
      }
   }
 ]
