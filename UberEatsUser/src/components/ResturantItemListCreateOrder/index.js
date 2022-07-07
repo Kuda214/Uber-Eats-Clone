@@ -7,12 +7,12 @@ const BasketDishItems = (props) => {
 
     return (
         <View style={styles.row}>
-        <View style={styles.quantityContainer}>
-            <Text>1</Text>
-        </View>
-        <Text style={styles.ItemName}>{name}</Text>
-        <Text style={styles.tprice}>ZAR {price}</Text>
-    </View>
+            <View style={styles.quantityContainer}>
+                <Text>1</Text>
+            </View>
+            <Text style={styles.ItemName}>{name}</Text>
+            <Text style={styles.tprice}>ZAR {price}</Text>
+        </View> 
     );
 }
 

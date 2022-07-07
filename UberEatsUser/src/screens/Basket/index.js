@@ -1,4 +1,4 @@
-import { View,Text, FlatList } from "react-native";
+import { View,Text, FlatList, Pressable } from "react-native";
 import styles from "./style";
 import resturants from '../../../assets/data/restaurants.json'
 import {AntDesign} from '@expo/vector-icons';
@@ -20,7 +20,8 @@ const Basket = () => {
                
                 <FlatList
                     data={restaurant.dishes}
-                    renderItem={({item}) => <BasketDishItems basketDishes={item} />}>
+                    renderItem={({item}) => <BasketDishItems basketDishes={item}
+                    keyExtractor={(item) => item.name} />}>
                     
                 </FlatList>
                 <View style={styles.horizontalSeperator}></View>
@@ -29,11 +30,11 @@ const Basket = () => {
             </View>
 
 
-            <View style={styles.button}>
+            <Pressable style={styles.button}>
                 <Text style={styles.buttonText}>
                   Create Order 
                 </Text>
-            </View>
+            </Pressable>
         </View>
     );
 }

@@ -6,14 +6,19 @@ import DishDetailedScreen from './src/screens/DishItemDetailedScreen';
 import Basket from './src/screens/Basket';
 import OrderScreen  from './src/screens/OrdersScreen';
 import OrderDetailsScreen from './src/screens/OrderDetailsScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import RootNavigator from './src/navigation';
+import HomeTabs from './src/navigation';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-        {/* <ResturantDetailsScreen/> */}
-        <OrderDetailsScreen />
-        <StatusBar style='light'/>
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+          {/* <RootNavigator /> */}
+          <HomeTabs/>
+          <StatusBar style='light'/>
+      </View>
+    </NavigationContainer>
   );
 }
 

@@ -4,16 +4,26 @@ import styles from './style';
 import {Ionicons} from '@expo/vector-icons';
 import DishListItem from '../../components/DishListItem';
 import Header from './Header.js';
+import {useRoute,useNavigation } from '@react-navigation/native'
 
 const resturant = resturants[0];
 
 const ResturantDetailsScreen = (props) =>{
+    const route = useRoute();
+    const navigation = useNavigation();
+
+    const id = route.params?.id;
+    console.warn(id);
+
+
+
     return(
         <View style={styles.page}>
             <FlatList
                 ListHeaderComponent={() => <Header resturant={resturant}/>}
                 data={resturant.dishes}
-                renderItem={({item,index})=> <DishListItem key={index} dish={item}/>} 
+                renderItem={({item,index})=> <DishListItem dish={item}
+                keyExtractor={(item) => item.name} />} 
             />
             
             <Ionicons
@@ -21,6 +31,7 @@ const ResturantDetailsScreen = (props) =>{
                 size={35}
                 color='#fff'
                 style={styles.iconContainer}
+                onPress={()=> navigation.goBack()}
             ></Ionicons>
 
         </View>
