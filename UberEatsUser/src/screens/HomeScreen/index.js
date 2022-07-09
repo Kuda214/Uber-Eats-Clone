@@ -1,8 +1,23 @@
 import { StyleSheet, FlatList,View } from 'react-native';
 import ResturantItem from '../../components/ResturantItem';
-import resturants from '../../../assets/data/restaurants.json'
+import { useState ,  useEffect} from 'react';
+import { DataStore } from 'aws-amplify';
+import { Restuarant } from '../../models';
 
 export default function HomeScreen() {
+
+  const [resturants, setRestuarants] = useState([]);
+
+  const fetchRestuarants = async () => {
+   
+    DataStore.query(Restuarant).then(setRestuarants)
+  }
+
+  useEffect(()=>{
+
+    fetchRestuarants();
+  },[]);
+
   return (
     <View styles={styles.page}>
       <FlatList

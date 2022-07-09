@@ -1,15 +1,34 @@
-import { View,Text, Pressable} from "react-native";
+import { View,Text, Pressable, ActivityIndicator} from "react-native";
 import styles from "./style";
 import resturants from '../../../assets/data/restaurants.json'
 import {AntDesign} from '@expo/vector-icons';
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { DataStore } from "aws-amplify";
+import { Dish } from "../../models";
 
-
-const dish = resturants[2].dishes[0];
+// const dish = resturants[2].dishes[0];
 // const quantity = 0; wont work we need to rerender
 
 const DishDetailedScreen = () => {
+    const route = useRoute();
+    const [dish, setDish] = useState([]);
+    const id = route.params.id;
+
+
+    useEffect(() =>{
+
+        //Fetch id(ed) Resturant
+        if(id){
+            DataStore.query(Dish,id).then(setDish);
+        }
+        
+    },[id]);
+
+    if(!dish)
+    {
+        return <ActivityIndicator size={"large"} color={"grey"}/>
+    }
 
     const navigation = useNavigation();
     const [quantity,setQuantity] = useState(1); //array of 2 values

@@ -17,7 +17,7 @@ const Header = (props) =>{
                     {resturant.name}
                 </Text>
                 <Text style = {styles.subtitle}>
-                    ZAR {resturant.deliveryFee} Delivery Fee &#8226; {resturant.minDeliveryTime} {'-'} {resturant.maxDeliveryTime} min
+                    ZAR {resturant.deliveryFee.toFixed(1)} Delivery Fee &#8226; {resturant.minDelivery} {'-'} {resturant.maxDelivery} min
                 </Text>
             </View>
 

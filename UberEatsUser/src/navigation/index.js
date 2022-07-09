@@ -7,16 +7,22 @@ import HomeScreen from '../screens/HomeScreen';
 import OrderScreen from '../screens/OrdersScreen';
 import ResturantDetailsScreen from '../screens/ResturantDetailsScreen';
 import Profile from '../screens/ProfileScreen';
-import { Foundation, FontAwesome5, MaterialIcons } from '@expo/vector-icons'
+import { Foundation, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Stack = createNativeStackNavigator();
 
 
 const RootNavigator = () =>{
+    const { dbUser } = useAuthContext();
+
+
     return(
         <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown:false,headerTitleAlign:'center'}}>
-            <Stack.Screen name='Home' component={HomeTabs}></Stack.Screen>
-            {/* <Stack.Screen name=''></Stack.Screen> */}
+            {dbUser ? 
+            <Stack.Screen name='Home' component={HomeTabs}></Stack.Screen> :
+            <Stack.Screen name='Profile' component={Profile}></Stack.Screen>
+            }
         </Stack.Navigator>
     );
 }
@@ -34,7 +40,7 @@ const HomeTabs = () =>{
             </Tabs.Screen>
 
             <Tabs.Screen 
-                name='Orders'  
+                name='OrdersStack'  
                 component={OrderStackNavigator}
                 options={{tabBarIcon: ({color})=> <MaterialIcons name='list-alt' size={24} 
                 color={color}/> }}>    
