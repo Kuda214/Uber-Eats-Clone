@@ -15,7 +15,7 @@ const AuthContextProvider = ({children}) => {
         Auth.currentAuthenticatedUser({bypassCache: true}).then(setAuthUser);
     },[]);
 
-    useInsertionEffect(() =>{
+    useEffect(() =>{
         DataStore.query(User, (user) => user.sub("eq",sub)).then((users) => setDbUser(users[0]));
     },[sub])
     // sub is id
