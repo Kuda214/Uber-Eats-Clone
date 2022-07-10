@@ -1,79 +1,128 @@
-import { View,Text, Pressable, ActivityIndicator} from "react-native";
-import styles from "./style";
-import resturants from '../../../assets/data/restaurants.json'
-import {AntDesign} from '@expo/vector-icons';
 import { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { DataStore } from "aws-amplify";
 import { Dish } from "../../models";
-
-// const dish = resturants[2].dishes[0];
-// const quantity = 0; wont work we need to rerender
+import { useBasketContext } from "../../contexts/BasketContext";
 
 const DishDetailedScreen = () => {
-    const route = useRoute();
-    const [dish, setDish] = useState([]);
-    const id = route.params.id;
+  const [dish, setDish] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
+  const navigation = useNavigation();
+  const route = useRoute();
+  const id = route.params?.id;
 
-    useEffect(() =>{
+  const { addDishToBasket } = useBasketContext();
 
-        //Fetch id(ed) Resturant
-        if(id){
-            DataStore.query(Dish,id).then(setDish);
-        }
-        
-    },[id]);
-
-    if(!dish)
-    {
-        return <ActivityIndicator size={"large"} color={"grey"}/>
+  useEffect(() => {
+    if (id) {
+      DataStore.query(Dish, id).then(setDish);
     }
+  }, [id]);
 
-    const navigation = useNavigation();
-    const [quantity,setQuantity] = useState(1); //array of 2 values
-    const [totalPrice, setTotalPrice] = useState(dish.price);
-    //vale = 2 wont work so setter(2)
+  const onAddToBasket = async () => {
+    await addDishToBasket(dish, quantity);
+    navigation.goBack();
+  };
 
-    const onMinus = () =>{
-
-        if(quantity > 1)
-        {
-            setQuantity(quantity -1);
-            setTotalPrice(totalPrice - dish.price);
-
-        }
-   
+  const onMinus = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
     }
-    const onPlus = () =>
-    {
-        setQuantity(quantity + 1);
-        setTotalPrice(totalPrice + dish.price);
+  };
 
-    }
+  const onPlus = () => {
+    setQuantity(quantity + 1);
+  };
 
-    return (
-        <View style={styles.page}>
-            <View style={styles.dishInfo}>
-                <Text style={styles.name}>{dish.name}</Text>
-                <Text style={styles.description}>{dish.description}</Text>
-                <View style={styles.horizontalSeperator}></View>
-            </View>
+  const getTotal = () => {
+    return (dish.price * quantity).toFixed(2);
+  };
 
-            <View style={styles.row}>
-                <AntDesign name="minuscircleo" size={45} color={"black"} onPress={onMinus}/>
-                <Text style={styles.quantity}>{quantity}</Text>
-                <AntDesign name="pluscircleo" size={45} color={"black"} onPress={onPlus}/>
+  if (!dish) {
+    return <ActivityIndicator size="large" color="gray" />;
+  }
 
-            </View>
+  return (
+    <View style={styles.page}>
+      <Text style={styles.name}>{dish.name}</Text>
+      <Text style={styles.description}>{dish.description}</Text>
+      <View style={styles.separator} />
 
-            <Pressable onPress={() => navigation.navigate('Basket')} style={styles.button}>
-                <Text style={styles.buttonText}>
-                    Add {quantity} to basket &#8226; R{totalPrice}
-                </Text>
-            </Pressable>
-        </View>
-    );
-}
+      <View style={styles.row}>
+        <AntDesign
+          name="minuscircleo"
+          size={60}
+          color={"black"}
+          onPress={onMinus}
+        />
+        <Text style={styles.quantity}>{quantity}</Text>
+        <AntDesign
+          name="pluscircleo"
+          size={60}
+          color={"black"}
+          onPress={onPlus}
+        />
+      </View>
+
+      <Pressable onPress={onAddToBasket} style={styles.button}>
+        <Text style={styles.buttonText}>
+          Add {quantity} to basket &#8226; R{getTotal()}
+        </Text>
+      </Pressable>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    width: "100%",
+    paddingVertical: 40, // temp fix
+    padding: 10,
+  },
+  name: {
+    fontSize: 30,
+    fontWeight: "600",
+    marginVertical: 10,
+  },
+  description: {
+    color: "gray",
+  },
+  separator: {
+    height: 1,
+    backgroundColor: "lightgrey",
+    marginVertical: 10,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 50,
+  },
+  quantity: {
+    fontSize: 25,
+    marginHorizontal: 20,
+  },
+  button: {
+    backgroundColor: "black",
+    marginTop: "auto",
+    padding: 20,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "600",
+    fontSize: 18,
+  },
+});
 
 export default DishDetailedScreen;
