@@ -6,7 +6,10 @@ import HomeTabs from './src/navigation';
 import {Amplify} from 'aws-amplify';
 import config from './src/aws-exports';
 import {withAuthenticator} from 'aws-amplify-react-native';
-import AuthContextProvider from './src/contexts/AuthContext'
+import AuthContextProvider from './src/contexts/AuthContext';
+import BasketContextProvider from './src/contexts/BasketContext';
+import OrderContextProvider from './src/contexts/OrderContext';
+
 
 Amplify.configure({...config,Analytics:{disabled:true}});
 
@@ -14,8 +17,12 @@ function App() {
   return (
     <NavigationContainer>
       <AuthContextProvider>
-        <RootNavigator />
-        <StatusBar style='light'/>
+        <BasketContextProvider>
+          <OrderContextProvider>
+            <RootNavigator />
+            <StatusBar style='light'/>
+          </OrderContextProvider>
+        </BasketContextProvider>
       </AuthContextProvider>
     </NavigationContainer>
   );

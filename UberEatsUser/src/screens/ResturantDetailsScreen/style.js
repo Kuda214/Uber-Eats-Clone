@@ -37,8 +37,23 @@ const styles = StyleSheet.create({
         fontSize:17,
         paddingLeft:25,
 
+    },
+    button:
+    {
+        backgroundColor:"#000",
+        bottom:10,
+        position:'absolute',
+        width:'95%',
+        alignItems:'center',
+        alignSelf:'center',
+        color:'#fff',
+        padding:15,
+    },
+    buttonText:{
+        fontSize:20,
+        fontWeight:'600',
+        color:"#fff",
     }
-
 });
 
 export default styles;

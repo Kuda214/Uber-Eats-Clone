@@ -1,13 +1,9 @@
-import {Text, View, Image,StyleSheet } from 'react-native';
+import {Text, View, Image,StyleSheet, ActivityIndicator } from 'react-native';
 import styles from './style';
 // import DishListItem from '../../components/DishListItem';
-import orders from '../../../assets/data/orders.json'
 
-const order = orders[0];
+const Header = ({order}) =>{
 
-const Header = (props) =>{
-
-    const {resturant} = props;
     return(
         <View style={styles.headingContainer}>
             <Image source={{uri:order.Restaurant.image}} style={styles.image}></Image>
