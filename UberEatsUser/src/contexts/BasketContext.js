@@ -2,7 +2,7 @@ import { createContext, useState,useEffect, useContext, useInsertionEffect } fro
 import { Auth } from "aws-amplify";
 import { DataStore } from "aws-amplify";
 import { User, Basket, BasketDish } from "../models";
-import { useAuthContext} from '../contexts/AuthContext'
+import { useAuthContext} from '../contexts/AuthContext';
 
 const BasketContext = createContext();
 
