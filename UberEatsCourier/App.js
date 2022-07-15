@@ -1,11 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import orders from './assets/data/orders.json';
 import OrderScreen from './screens/OrderScreen';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Navigation from './navigation';
 import { NavigationContainer } from '@react-navigation/native';
-
+import { StatusBar } from 'react-native';
 
 export default function App() {
   return (
@@ -14,7 +13,7 @@ export default function App() {
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Navigation />
         </GestureHandlerRootView>
-        <StatusBar style="auto" />
+        <StatusBar style="light"/>
       </NavigationContainer>
 
     
