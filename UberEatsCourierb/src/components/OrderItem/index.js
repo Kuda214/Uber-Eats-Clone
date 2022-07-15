@@ -1,14 +1,17 @@
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image,Pressable} from 'react-native';
 import { StyleSheet } from "react-native";
 import { Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 // const order  = orders[0];
 
 const OrderItem = ({order})  => {
+  const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.row}>
+    <Pressable style={styles.container}
+      onPress={() => navigation.navigate('OrderDelivery', {id: order.id})} >
+          <View style={styles.row}>
         
         {
         order.Restaurant.image &&
@@ -30,7 +33,7 @@ const OrderItem = ({order})  => {
 
         </View>
       </View>    
-    </View>
+    </Pressable>
   );
 }
 
