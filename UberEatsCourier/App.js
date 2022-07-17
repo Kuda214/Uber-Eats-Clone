@@ -1,31 +1,36 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import orders from './assets/data/orders.json';
-import OrderScreen from './screens/OrderScreen';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Navigation from './navigation';
-import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import Navigation from "./src/navigation";
+import { Amplify } from "aws-amplify";
+import { withAuthenticator } from "aws-amplify-react-native";
+import awsconfig from "./src/aws-exports";
+import AuthContextProvider from "./src/contexts/AuthContext";
+import OrderContextProvider from "./src/contexts/OrderContext";
 
-export default function App() {
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Setting a timer"]);
+
+Amplify.configure({
+  ...awsconfig,
+  Analytics: {
+    disabled: true,
+  },
+});
+
+function App() {
   return (
-    
-      <NavigationContainer>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <Navigation />
-        </GestureHandlerRootView>
-        <StatusBar style="light"/>
-      </NavigationContainer>
-
-    
-
+    <NavigationContainer>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <AuthContextProvider>
+          <OrderContextProvider>
+            <Navigation />
+          </OrderContextProvider>
+        </AuthContextProvider>
+      </GestureHandlerRootView>
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create ({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default withAuthenticator(App);

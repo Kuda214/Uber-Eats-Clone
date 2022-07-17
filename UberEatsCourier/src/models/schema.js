@@ -1,5 +1,94 @@
 export const schema = {
     "models": {
+        "Courier": {
+            "name": "Courier",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "sub": {
+                    "name": "sub",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "lat": {
+                    "name": "lat",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "lng": {
+                    "name": "lng",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "transportationMode": {
+                    "name": "transportationMode",
+                    "isArray": false,
+                    "type": {
+                        "enum": "TransportationModes"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Couriers",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Basket": {
             "name": "Basket",
             "fields": {
@@ -447,6 +536,20 @@ export const schema = {
                         "associatedWith": "orderID"
                     }
                 },
+                "Courier": {
+                    "name": "Courier",
+                    "isArray": false,
+                    "type": {
+                        "model": "Courier"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": "id",
+                        "targetName": "orderCourierId"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -465,6 +568,13 @@ export const schema = {
                 },
                 "orderRestuarantId": {
                     "name": "orderRestuarantId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "orderCourierId": {
+                    "name": "orderCourierId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -675,14 +785,14 @@ export const schema = {
                 "lng": {
                     "name": "lng",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": true,
                     "attributes": []
                 },
                 "lat": {
                     "name": "lat",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": true,
                     "attributes": []
                 },
@@ -765,6 +875,13 @@ export const schema = {
         }
     },
     "enums": {
+        "TransportationModes": {
+            "name": "TransportationModes",
+            "values": [
+                "DRIVING",
+                "BICYCLING"
+            ]
+        },
         "OrderStatus": {
             "name": "OrderStatus",
             "values": [
@@ -777,5 +894,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "a83dc200c1a207d83e7c00479491869b"
+    "version": "bcfcc27bb21b0bae94a3e90cc954f80f"
 };

@@ -1,5 +1,10 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
+export enum TransportationModes {
+  DRIVING = "DRIVING",
+  BICYCLING = "BICYCLING"
+}
+
 export enum OrderStatus {
   NEW = "NEW",
   COOKING = "COOKING",
@@ -9,6 +14,10 @@ export enum OrderStatus {
 }
 
 
+
+type CourierMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type BasketMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
@@ -36,6 +45,19 @@ type RestuarantMetaData = {
 
 type UserMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class Courier {
+  readonly id: string;
+  readonly name: string;
+  readonly sub: string;
+  readonly lat: number;
+  readonly lng: number;
+  readonly transportationMode: TransportationModes | keyof typeof TransportationModes;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Courier, CourierMetaData>);
+  static copyOf(source: Courier, mutator: (draft: MutableModel<Courier, CourierMetaData>) => MutableModel<Courier, CourierMetaData> | void): Courier;
 }
 
 export declare class Basket {
@@ -93,9 +115,11 @@ export declare class Order {
   readonly total: number;
   readonly status: OrderStatus | keyof typeof OrderStatus;
   readonly OrderDishes?: (OrderDish | null)[] | null;
+  readonly Courier?: Courier | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly orderRestuarantId?: string | null;
+  readonly orderCourierId?: string | null;
   constructor(init: ModelInit<Order, OrderMetaData>);
   static copyOf(source: Order, mutator: (draft: MutableModel<Order, OrderMetaData>) => MutableModel<Order, OrderMetaData> | void): Order;
 }
@@ -123,8 +147,8 @@ export declare class User {
   readonly id: string;
   readonly name: string;
   readonly address: string;
-  readonly lng: string;
-  readonly lat: string;
+  readonly lng: number;
+  readonly lat: number;
   readonly Orders?: (Order | null)[] | null;
   readonly Baskets?: (Basket | null)[] | null;
   readonly sub: string;
